@@ -1,0 +1,12 @@
+{
+    "name": "ageras/company-data-service",
+    "description": "Retrieving external company data",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Nicolai Østby",
+            "email": "nicolaiostby@gmail.com"
+        }
+    ],
+    "require": {}
+}
