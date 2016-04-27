@@ -17,6 +17,16 @@ class CompanyServiceTest extends TestCase
         $this->assertEquals('AGERAS A/S', $company->company_name);
     }
 
+    /**
+     * @expectedException \Ageras\CompanyData\Exceptions\EmptyResult
+     */
+    public function test_that_empty_result_exception_is_thrown()
+    {
+        $service = new CompanyService();
+
+        $service->companyByVatNumberOrFail('000000', 'dk');
+    }
+
     public function test_that_the_correct_list_of_companies_by_name_is_returned_from_the_cvr_provider()
     {
         $service = new CompanyService();

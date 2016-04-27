@@ -2,8 +2,8 @@
 
 namespace Ageras\CompanyData;
 
-use Ageras\CompanyData\Models\EmptyResult;
-use Ageras\CompanyData\Models\SingleResultExpected;
+use Ageras\CompanyData\Exceptions\EmptyResult;
+use Ageras\CompanyData\Exceptions\SingleResultExpected;
 use Ageras\CompanyData\Providers\CompanyProviderInterface;
 use Ageras\CompanyData\Providers\CvrProvider;
 use Dotenv\Dotenv;

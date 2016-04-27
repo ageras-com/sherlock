@@ -1,6 +1,6 @@
 <?php
 
-namespace Ageras\CompanyData\Models;
+namespace Ageras\CompanyData\Exceptions;
 
 use RuntimeException;
 
