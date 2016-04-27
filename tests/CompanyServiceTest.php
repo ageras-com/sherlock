@@ -1,9 +1,9 @@
 <?php
 
-namespace Ageras\CompanyData\Tests;
+namespace Ageras\Sherlock\Tests;
 
-use Ageras\CompanyData\CompanyService;
-use Ageras\CompanyData\Models\Company;
+use Ageras\Sherlock\CompanyService;
+use Ageras\Sherlock\Models\Company;
 use Dotenv\Dotenv;
 
 class CompanyServiceTest extends TestCase
@@ -17,7 +17,6 @@ class CompanyServiceTest extends TestCase
         }
     }
 
-
     public function test_that_the_correct_company_by_vat_number_is_returned_from_the_cvr_provider()
     {
         $service = new CompanyService();
@@ -29,7 +28,7 @@ class CompanyServiceTest extends TestCase
     }
 
     /**
-     * @expectedException \Ageras\CompanyData\Exceptions\EmptyResult
+     * @expectedException \Ageras\Sherlock\Exceptions\EmptyResult
      */
     public function test_that_empty_result_exception_is_thrown()
     {

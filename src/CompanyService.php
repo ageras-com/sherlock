@@ -1,11 +1,11 @@
 <?php
 
-namespace Ageras\CompanyData;
+namespace Ageras\Sherlock;
 
-use Ageras\CompanyData\Exceptions\EmptyResult;
-use Ageras\CompanyData\Exceptions\SingleResultExpected;
-use Ageras\CompanyData\Providers\CompanyProviderInterface;
-use Ageras\CompanyData\Providers\CvrProvider;
+use Ageras\Sherlock\Exceptions\EmptyResult;
+use Ageras\Sherlock\Exceptions\SingleResultExpected;
+use Ageras\Sherlock\Providers\CompanyProviderInterface;
+use Ageras\Sherlock\Providers\CvrProvider;
 
 class CompanyService
 {

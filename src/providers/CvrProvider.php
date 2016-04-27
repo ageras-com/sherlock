@@ -1,9 +1,9 @@
 <?php
 
-namespace Ageras\CompanyData\Providers;
+namespace Ageras\Sherlock\Providers;
 
-use Ageras\CompanyData\Models\Company;
-use Ageras\CompanyData\Models\SingleResultExpected;
+use Ageras\Sherlock\Models\Company;
+use Ageras\Sherlock\Models\SingleResultExpected;
 use GuzzleHttp\Client;
 
 class CvrProvider implements CompanyProviderInterface

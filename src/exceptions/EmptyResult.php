@@ -1,6 +1,6 @@
 <?php
 
-namespace Ageras\CompanyData\Exceptions;
+namespace Ageras\Sherlock\Exceptions;
 
 use RuntimeException;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Ageras\CompanyData\Models;
+namespace Ageras\Sherlock\Models;
 
 class Company
 {
