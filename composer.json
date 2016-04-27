@@ -1,6 +1,6 @@
 {
-    "name": "ageras/company-data-service",
-    "description": "Retrieving external company data",
+    "name": "ageras/sherlock",
+    "description": "Retrieving company data from providers",
     "license": "MIT",
     "authors": [
         {
@@ -17,8 +17,8 @@
     },
     "autoload": {
         "psr-4": {
-            "Ageras\\CompanyData\\": "src/",
-            "Ageras\\CompanyData\\Tests\\": "tests/"
+            "Ageras\\Sherlock\\": "src/",
+            "Ageras\\Sherlock\\Tests\\": "tests/"
         }
     }
 }

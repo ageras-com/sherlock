@@ -1,6 +1,6 @@
 <?php
 
-namespace Ageras\CompanyData\Tests;
+namespace Ageras\Sherlock\Tests;
 
 use PHPUnit_Framework_TestCase;
 

@@ -1,24 +1,17 @@
 <?php
 
-namespace Ageras\CompanyData;
+namespace Ageras\Sherlock;
 
-use Ageras\CompanyData\Exceptions\EmptyResult;
-use Ageras\CompanyData\Exceptions\SingleResultExpected;
-use Ageras\CompanyData\Providers\CompanyProviderInterface;
-use Ageras\CompanyData\Providers\CvrProvider;
-use Dotenv\Dotenv;
+use Ageras\Sherlock\Exceptions\EmptyResult;
+use Ageras\Sherlock\Exceptions\SingleResultExpected;
+use Ageras\Sherlock\Providers\CompanyProviderInterface;
+use Ageras\Sherlock\Providers\CvrProvider;
 
 class CompanyService
 {
     protected $providers = [
         'dk' => CvrProvider::class,
     ];
-
-    public function __construct()
-    {
-        $baseDir = dirname(dirname(__FILE__));
-        (new Dotenv($baseDir))->load();
-    }
 
     /**
      * This method returns a single Company. If the API
@@ -27,6 +20,7 @@ class CompanyService
      * was returned by the API.
      *
      * @param $vatNumber
+     * @param $geoCode
      * @return Company|null
      * @throws SingleResultExpected
      */

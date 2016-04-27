@@ -1,10 +1,10 @@
 <?php
 
-namespace Ageras\CompanyData\Providers;
+namespace Ageras\Sherlock\Providers;
 
-use Ageras\CompanyData\Models\Company;
-use Ageras\CompanyData\Models\EmptyResult;
-use Ageras\CompanyData\Models\SingleResultExpected;
+use Ageras\Sherlock\Models\Company;
+use Ageras\Sherlock\Models\EmptyResult;
+use Ageras\Sherlock\Models\SingleResultExpected;
 
 interface CompanyProviderInterface
 {
