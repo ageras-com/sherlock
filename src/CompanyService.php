@@ -2,8 +2,10 @@
 
 namespace Ageras\CompanyData;
 
+use Ageras\CompanyData\Models\EmptyResult;
 use Ageras\CompanyData\Providers\CompanyProviderInterface;
 use Ageras\CompanyData\Providers\CvrProvider;
+use Dotenv\Dotenv;
 
 class CompanyService
 {
@@ -11,12 +13,44 @@ class CompanyService
         'dk' => CvrProvider::class,
     ];
 
+    public function __construct()
+    {
+        $baseDir = dirname(dirname(__FILE__));
+        (new Dotenv($baseDir))->load();
+    }
+
     public function companyByVatNumber($vatNumber, $geoCode)
     {
-        /** @var CompanyProviderInterface $provider */
+        $result = null;
         foreach ($this->providers($geoCode) as $provider) {
-            $provider = new $provider;
+            /** @var CompanyProviderInterface $provider */
+            $provider = new $provider($geoCode);
+            $result = $provider->companyByVatNumber($vatNumber);
         }
+
+        return $result;
+    }
+
+    public function companyByVatNumberOrFail($vatNumber, $geoCode)
+    {
+        $result = $this->companyByVatNumber($vatNumber, $geoCode);
+
+        /* Throw exception if no company was found */
+        if(is_null($result)) {
+            throw new EmptyResult();
+        }
+        
+        return $result;
+    }
+
+    public function companiesByName()
+    {
+
+    }
+
+    public function companiesByName()
+    {
+
     }
 
     public function providers($geoCode)

@@ -2,7 +2,9 @@
 
 namespace Ageras\CompanyData\Tests;
 
-class TestCase extends \Orchestra\Testbench\TestCase
+use PHPUnit_Framework_TestCase;
+
+class TestCase extends PHPUnit_Framework_TestCase
 {
     //
 }
