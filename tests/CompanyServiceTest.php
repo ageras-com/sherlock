@@ -4,9 +4,18 @@ namespace Ageras\CompanyData\Tests;
 
 use Ageras\CompanyData\CompanyService;
 use Ageras\CompanyData\Models\Company;
+use Dotenv\Dotenv;
 
 class CompanyServiceTest extends TestCase
 {
+    protected function setUp()
+    {
+        parent::setUp();
+        $baseDir = dirname(dirname(__FILE__));
+        (new Dotenv($baseDir))->load();
+    }
+
+
     public function test_that_the_correct_company_by_vat_number_is_returned_from_the_cvr_provider()
     {
         $service = new CompanyService();
