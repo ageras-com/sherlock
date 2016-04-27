@@ -3,7 +3,6 @@
 namespace Ageras\CompanyData\Providers;
 
 use Ageras\CompanyData\Models\Company;
-use Ageras\CompanyData\Models\EmptyResult;
 use Ageras\CompanyData\Models\SingleResultExpected;
 use GuzzleHttp\Client;
 
@@ -24,17 +23,6 @@ class CvrProvider implements CompanyProviderInterface
         }
 
         return isset($result[0]) ? $result[0] : null;
-    }
-
-    public function companyByVatNumberOrFail($vatNumber)
-    {
-        $company = $this->companyByVatNumber($vatNumber);
-
-        if(is_null($company)) {
-            throw new EmptyResult();
-        }
-
-        return $company;
     }
 
     public function companiesByVatNumber($vatNumber)

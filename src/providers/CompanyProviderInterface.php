@@ -31,17 +31,6 @@ interface CompanyProviderInterface
     public function companyByVatNumber($vatNumber);
 
     /**
-     * This method does the same as companyByVatNumber, but
-     * throws an EmptyResult exception if no result was
-     * returned by the API.
-     *
-     * @param $vatNumber
-     * @return Company|null
-     * @throws SingleResultExpected|EmptyResult
-     */
-    public function companyByVatNumberOrFail($vatNumber);
-
-    /**
      * Returns an array of companies.
      *
      * @param $vatNumber

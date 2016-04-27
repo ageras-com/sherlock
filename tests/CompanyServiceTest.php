@@ -29,4 +29,22 @@ class CompanyServiceTest extends TestCase
 
         $this->assertContains('AGERAS A/S', $names);
     }
+
+    public function test_that_no_providers_are_returned_when_geo_code_is_empty()
+    {
+        $service = new CompanyService();
+
+        $providers = $service->providers('');
+
+        $this->assertEmpty($providers);
+    }
+
+    public function test_that_a_list_of_providers_is_returned_when_geo_code_exists()
+    {
+        $service = new CompanyService();
+
+        $providers = $service->providers('dk');
+
+        $this->assertNotEmpty($providers);
+    }
 }

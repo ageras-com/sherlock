@@ -3,6 +3,7 @@
 namespace Ageras\CompanyData;
 
 use Ageras\CompanyData\Models\EmptyResult;
+use Ageras\CompanyData\Models\SingleResultExpected;
 use Ageras\CompanyData\Providers\CompanyProviderInterface;
 use Ageras\CompanyData\Providers\CvrProvider;
 use Dotenv\Dotenv;
@@ -19,6 +20,16 @@ class CompanyService
         (new Dotenv($baseDir))->load();
     }
 
+    /**
+     * This method returns a single Company. If the API
+     * returns more than one result, a SingleResultExpected
+     * is thrown. The method returns null if no result
+     * was returned by the API.
+     *
+     * @param $vatNumber
+     * @return Company|null
+     * @throws SingleResultExpected
+     */
     public function companyByVatNumber($vatNumber, $geoCode)
     {
         $result = null;
@@ -31,6 +42,16 @@ class CompanyService
         return $result;
     }
 
+    /**
+     * This method does the same as companyByVatNumber, but
+     * throws an EmptyResult exception if no Company was
+     * returned by the API.
+     *
+     * @param $vatNumber
+     * @param $geoCode
+     * @return Company
+     * @throws EmptyResult|SingleResultExpected
+     */
     public function companyByVatNumberOrFail($vatNumber, $geoCode)
     {
         $result = $this->companyByVatNumber($vatNumber, $geoCode);
@@ -43,6 +64,13 @@ class CompanyService
         return $result;
     }
 
+    /**
+     * Returns an array of companies.
+     *
+     * @param $vatNumber
+     * @param $geoCode
+     * @return array
+     */
     public function companiesByVatNumber($vatNumber, $geoCode)
     {
         $result = [];
@@ -58,6 +86,14 @@ class CompanyService
         return $result;
     }
 
+
+    /**
+     * Returns an array of companies.
+     *
+     * @param $name
+     * @param $geoCode
+     * @return array
+     */
     public function companiesByName($name, $geoCode)
     {
         $result = [];
@@ -73,8 +109,18 @@ class CompanyService
         return $result;
     }
 
+    /**
+     * Returns an array of providers based on geo code
+     *
+     * @param $geoCode
+     * @return array
+     */
     public function providers($geoCode)
     {
+        if(!isset($this->providers[$geoCode])) {
+            return [];
+        }
+
         return (array)$this->providers[$geoCode];
     }
 }
