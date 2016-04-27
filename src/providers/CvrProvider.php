@@ -17,7 +17,7 @@ class CvrProvider implements CompanyProviderInterface
 
     public function companyByVatNumber($vatNumber)
     {
-        $result = $this->query('cvrNummer:' . $vatNumber);
+        $result = $this->companiesByVatNumber($vatNumber);
 
         if(count($result) > 1) {
             throw new SingleResultExpected();
@@ -39,11 +39,13 @@ class CvrProvider implements CompanyProviderInterface
 
     public function companiesByVatNumber($vatNumber)
     {
-        // TODO: Implement companiesByVatNumber() method.
+        $vatNumber = urlencode($vatNumber);
+        return $this->query('cvrNummer:' . $vatNumber);
     }
 
     public function companiesByName($name)
     {
+        $name = urlencode($name);
         return $this->query('Vrvirksomhed.virksomhedMetadata.nyesteNavn.navn:' . $name);
     }
 

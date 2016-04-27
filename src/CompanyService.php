@@ -43,14 +43,34 @@ class CompanyService
         return $result;
     }
 
-    public function companiesByName()
+    public function companiesByVatNumber($vatNumber, $geoCode)
     {
+        $result = [];
+        foreach ($this->providers($geoCode) as $provider) {
+            /** @var CompanyProviderInterface $provider */
+            $provider = new $provider($geoCode);
+            $result = array_merge(
+                $result,
+                $provider->companiesByVatNumber($vatNumber)
+            );
+        }
 
+        return $result;
     }
 
-    public function companiesByName()
+    public function companiesByName($name, $geoCode)
     {
+        $result = [];
+        foreach ($this->providers($geoCode) as $provider) {
+            /** @var CompanyProviderInterface $provider */
+            $provider = new $provider($geoCode);
+            $result = array_merge(
+                $result,
+                $provider->companiesByName($name)
+            );
+        }
 
+        return $result;
     }
 
     public function providers($geoCode)
