@@ -70,11 +70,13 @@ class CvrProvider implements CompanyProviderInterface
 
         foreach($data->hits->hits as $hit) {
             $companyData = $hit->_source->Vrvirksomhed;
+            $bankrupt = (!empty($companyData->status) ? array_pop($companyData->status) : null);
             $result[] = new Company([
                 'company_name' => $companyData->virksomhedMetadata->nyesteNavn->navn,
+                'company_status' => $companyData->virksomhedMetadata->sammensatStatus,
+                'company_bankrupt' => ($bankrupt ? $bankrupt->kreditoplysningkode : null)
             ]);
         }
-
         return $result;
     }
 }

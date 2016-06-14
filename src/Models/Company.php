@@ -6,6 +6,8 @@ class Company
 {
     protected $attributes = [
         'company_name',
+        'company_status',
+        'company_bankrupt'
     ];
 
     protected $data;
