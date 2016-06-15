@@ -2,6 +2,7 @@
 
 namespace Ageras\Sherlock\Providers;
 
+use Ageras\Sherlock\Exceptions\UnknownCompanyStatus;
 use Ageras\Sherlock\Models\Company;
 use Ageras\Sherlock\Models\SingleResultExpected;
 use GuzzleHttp\Client;
@@ -70,13 +71,35 @@ class CvrProvider implements CompanyProviderInterface
 
         foreach($data->hits->hits as $hit) {
             $companyData = $hit->_source->Vrvirksomhed;
-            $bankrupt = (!empty($companyData->status) ? array_pop($companyData->status) : null);
             $result[] = new Company([
                 'company_name' => $companyData->virksomhedMetadata->nyesteNavn->navn,
-                'company_status' => $companyData->virksomhedMetadata->sammensatStatus,
-                'company_bankrupt' => ($bankrupt ? $bankrupt->kreditoplysningkode : null)
+                'company_status' => $this->getStatus($companyData->virksomhedMetadata->sammensatStatus),
             ]);
         }
         return $result;
+    }
+
+    protected function getStatus($status)
+    {
+        switch ($status) {
+            case 'Aktiv':
+                return Company::COMPANY_STATUS_ACTIVE;
+            case 'Ophørt':
+                return Company::COMPANY_STATUS_CEASED;
+            case 'NORMAL':
+                return Company::COMPANY_STATUS_NORMAL;
+            case 'OPLØSTEFTERFRIVILLIGLIKVIDATION':
+                return Company::COMPANY_STATUS_DISSOLVED_UNDER_VOLUNTARY_LIQUIDATION;
+            case 'UNDERKONKURS':
+                return Company::COMPANY_STATUS_IN_BANKRUPTCY;
+            case 'TVANGSOPLØST':
+                return Company::COMPANY_STATUS_FORCED_DISSOLVED;
+            case 'OPLØSTEFTERERKLÆRING':
+                return Company::COMPANY_STATUS_DISSOLVED_FOLLOWING_STATEMENT;
+            case 'UNDERFRIVILLIGLIKVIDATION':
+                return Company::COMPANY_STATUS_UNDER_VOLUNTARY_LIQUIDATION;
+        }
+        
+        throw new UnknownCompanyStatus($status);
     }
 }
