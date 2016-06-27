@@ -71,10 +71,11 @@ class CvrProvider implements CompanyProviderInterface
 
         foreach($data->hits->hits as $hit) {
             $companyData = $hit->_source->Vrvirksomhed;
-            $nyesteBeliggenhedsadresse = $companyData->virksomhedMetadata->nyesteBeliggenhedsadresse;
+            $virksomhedMetadata = $companyData->virksomhedMetadata;
+            $nyesteBeliggenhedsadresse = $virksomhedMetadata->nyesteBeliggenhedsadresse;
             $result[] = new Company([
-                'company_name' => $companyData->virksomhedMetadata->nyesteNavn->navn,
-                'company_status' => $this->getStatus($companyData->virksomhedMetadata->sammensatStatus),
+                'company_name' => $virksomhedMetadata->nyesteNavn->navn,
+                'company_status' => $this->getStatus($virksomhedMetadata->sammensatStatus),
                 'company_registration_number' => $companyData->regNummer,
                 'company_vat_number' => $companyData->cvrNummer,
                 'company_address' => trim(sprintf("%s %s%s, %s %s",
@@ -84,10 +85,10 @@ class CvrProvider implements CompanyProviderInterface
                     $nyesteBeliggenhedsadresse->etage,
                     $nyesteBeliggenhedsadresse->sidedoer
                 ), ' ,'),
-                'company_city' => $companyData->virksomhedMetadata->nyesteBeliggenhedsadresse->postdistrikt,
-                'company_postcode' => $companyData->virksomhedMetadata->nyesteBeliggenhedsadresse->postnummer,
-                'company_phone_number' => $companyData->virksomhedMetadata->nyesteKontaktoplysninger[0],
-                'company_email' => $companyData->virksomhedMetadata->nyesteKontaktoplysninger[1],
+                'company_city' => $nyesteBeliggenhedsadresse->postdistrikt,
+                'company_postcode' => $nyesteBeliggenhedsadresse->postnummer,
+                'company_phone_number' => $virksomhedMetadata->nyesteKontaktoplysninger[0],
+                'company_email' => $virksomhedMetadata->nyesteKontaktoplysninger[1],
             ]);
         }
         return $result;
