@@ -7,6 +7,13 @@ class Company
     protected $attributes = [
         'company_name',
         'company_status',
+        'company_registration_number',
+        'company_vat_number',
+        'company_address',
+        'company_city',
+        'company_postcode',
+        'company_phone_number',
+        'company_email',
     ];
 
     protected $data;
