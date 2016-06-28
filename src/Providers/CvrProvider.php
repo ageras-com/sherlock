@@ -78,17 +78,11 @@ class CvrProvider implements CompanyProviderInterface
                 'company_status' => $this->getStatus($virksomhedMetadata->sammensatStatus),
                 'company_registration_number' => $companyData->regNummer,
                 'company_vat_number' => $companyData->cvrNummer,
-                'company_address' => trim(sprintf("%s %s%s, %s %s",
-                    $nyesteBeliggenhedsadresse->vejnavn,
-                    $nyesteBeliggenhedsadresse->husnummerFra,
-                    $nyesteBeliggenhedsadresse->bogstavFra,
-                    $nyesteBeliggenhedsadresse->etage,
-                    $nyesteBeliggenhedsadresse->sidedoer
-                ), ' ,'),
+                'company_address' => $this->formatAddress($nyesteBeliggenhedsadresse),
                 'company_city' => $nyesteBeliggenhedsadresse->postdistrikt,
                 'company_postcode' => $nyesteBeliggenhedsadresse->postnummer,
-                'company_phone_number' => $virksomhedMetadata->nyesteKontaktoplysninger[0],
-                'company_email' => $virksomhedMetadata->nyesteKontaktoplysninger[1],
+                'company_phone_number' => $this->getContact($companyData->virksomhedMetadata->nyesteKontaktoplysninger),
+                'company_email' => $this->getContact($companyData->virksomhedMetadata->nyesteKontaktoplysninger, 1),
             ]);
         }
         return $result;
@@ -113,8 +107,37 @@ class CvrProvider implements CompanyProviderInterface
                 return Company::COMPANY_STATUS_DISSOLVED_FOLLOWING_STATEMENT;
             case 'UNDERFRIVILLIGLIKVIDATION':
                 return Company::COMPANY_STATUS_UNDER_VOLUNTARY_LIQUIDATION;
+            case 'OPLØSTEFTERKONKURS':
+                return Company::COMPANY_STATUS_DISSOLVED_AFTER_BANKRUPTCY;
         }
         
         throw new UnknownCompanyStatus($status);
+    }
+
+    /**
+     * Get contact information
+     * @param $contact
+     * @param int $location
+     * @return null
+     */
+    protected function getContact($contact, $location = 0)
+    {
+        return $contact[$location] ?: null;
+    }
+
+    /**
+     * Format address to a friendly format
+     * @param $address
+     * @return string
+     */
+    protected function formatAddress($address)
+    {
+        return trim(sprintf("%s %s%s, %s %s",
+            $address->vejnavn,
+            $address->husnummerFra,
+            $address->bogstavFra,
+            $address->etage,
+            $address->sidedoer
+        ), ' ,');
     }
 }
