@@ -1,4 +1,9 @@
 # Ageras Sherlock
+[![Latest Stable Version](https://poser.pugx.org/ageras/sherlock/v/stable)](https://packagist.org/packages/ageras/sherlock)
+[![Total Downloads](https://poser.pugx.org/ageras/sherlock/downloads)](https://packagist.org/packages/ageras/sherlock)
+[![Monthly Downloads](https://poser.pugx.org/ageras/sherlock/d/monthly)](https://packagist.org/packages/ageras/sherlock)
+[![Latest Unstable Version](https://poser.pugx.org/ageras/sherlock/v/unstable)](https://packagist.org/packages/ageras/sherlock)
+[![License](https://poser.pugx.org/ageras/sherlock/license)](https://packagist.org/packages/ageras/sherlock)
 
 ## Description
 Integrations to lookup companies.
@@ -18,6 +23,21 @@ This credentials needs to be obtained from the proper authorities. [virkdata](ht
     COMPANY_SERVICE_CVR_PASSWORD=
 
 ## Contributing
+
+### Bug Reports
+All issues are welcome, to create a better product, but your issue should contain a title and a clear description of the issue. You should also include as much relevant information as possible and a code sample that demonstrates the issue.
+
+### Which Branch?
+All bug fixes should be sent to the develop branch. Bug fixes should never be sent to the master
+
+### Security Vulnerabilities
+If you discover a security vulnerability within Sherlock package, write an email to Ageras' development team.
+
+### Coding Style
+Ageras' follows the PSR-2 coding standard and the [PSR-4](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-4-autoloader.md) autoloading standard.
+
+### StyleCI
+ StyleCI automatically fixes code style to match the standard.
 
 ## TODO
 
