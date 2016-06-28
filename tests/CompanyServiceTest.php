@@ -12,7 +12,7 @@ class CompanyServiceTest extends TestCase
     {
         parent::setUp();
         $baseDir = dirname(dirname(__FILE__));
-        if (is_readable($baseDir.'/.env')) {
+        if (is_readable($baseDir . '/.env')) {
             (new Dotenv($baseDir))->load();
         }
     }
