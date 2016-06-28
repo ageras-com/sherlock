@@ -35,7 +35,7 @@ class Company
 
     public function getAttribute($key)
     {
-        if(in_array($key, $this->attributes)) {
+        if (in_array($key, $this->attributes)) {
             return $this->data[$key];
         }
     }

@@ -51,10 +51,10 @@ class CompanyService
         $result = $this->companyByVatNumber($vatNumber, $geoCode);
 
         /* Throw exception if no company was found */
-        if(is_null($result)) {
+        if (is_null($result)) {
             throw new EmptyResult();
         }
-        
+
         return $result;
     }
 
@@ -80,7 +80,6 @@ class CompanyService
         return $result;
     }
 
-
     /**
      * Returns an array of companies.
      *
@@ -104,17 +103,17 @@ class CompanyService
     }
 
     /**
-     * Returns an array of providers based on geo code
+     * Returns an array of providers based on geo code.
      *
      * @param $geoCode
      * @return array
      */
     public function providers($geoCode)
     {
-        if(!isset($this->providers[$geoCode])) {
+        if (! isset($this->providers[$geoCode])) {
             return [];
         }
 
-        return (array)$this->providers[$geoCode];
+        return (array) $this->providers[$geoCode];
     }
 }
