@@ -122,7 +122,7 @@ class CvrProvider implements CompanyProviderInterface
      */
     protected function getContact($contact, $location = 0)
     {
-        return $contact[$location] ?: null;
+        return isset($contact[$location]) ? $contact[$location] : null;
     }
 
     /**
