@@ -30,14 +30,14 @@ class CvrProvider implements CompanyProviderInterface
     {
         $vatNumber = urlencode($vatNumber);
 
-        return $this->query('cvrNummer:'.$vatNumber);
+        return $this->query('cvrNummer:' . $vatNumber);
     }
 
     public function companiesByName($name)
     {
         $name = urlencode($name);
 
-        return $this->query('Vrvirksomhed.virksomhedMetadata.nyesteNavn.navn:'.$name);
+        return $this->query('Vrvirksomhed.virksomhedMetadata.nyesteNavn.navn:' . $name);
     }
 
     /**
@@ -46,7 +46,7 @@ class CvrProvider implements CompanyProviderInterface
      */
     protected function query($string)
     {
-        $url = $this->serviceUrl.'/_search';
+        $url = $this->serviceUrl . '/_search';
         $client = new Client();
 
         $response = $client->get($url, [
