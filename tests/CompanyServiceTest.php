@@ -12,7 +12,7 @@ class CompanyServiceTest extends TestCase
     {
         parent::setUp();
         $baseDir = dirname(dirname(__FILE__));
-        if(is_readable($baseDir . '/.env')) {
+        if (is_readable($baseDir . '/.env')) {
             (new Dotenv($baseDir))->load();
         }
     }
@@ -43,7 +43,7 @@ class CompanyServiceTest extends TestCase
 
         $companies = $service->companiesByName('Ageras', 'dk');
 
-        $names = array_map(function(Company $company) {
+        $names = array_map(function (Company $company) {
             return $company->company_name;
         }, $companies);
 

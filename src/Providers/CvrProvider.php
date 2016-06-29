@@ -19,7 +19,7 @@ class CvrProvider implements CompanyProviderInterface
     {
         $result = $this->companiesByVatNumber($vatNumber);
 
-        if(count($result) > 1) {
+        if (count($result) > 1) {
             throw new SingleResultExpected();
         }
 
@@ -29,12 +29,14 @@ class CvrProvider implements CompanyProviderInterface
     public function companiesByVatNumber($vatNumber)
     {
         $vatNumber = urlencode($vatNumber);
+
         return $this->query('cvrNummer:' . $vatNumber);
     }
 
     public function companiesByName($name)
     {
         $name = urlencode($name);
+
         return $this->query('Vrvirksomhed.virksomhedMetadata.nyesteNavn.navn:' . $name);
     }
 
@@ -69,7 +71,7 @@ class CvrProvider implements CompanyProviderInterface
         $data = \GuzzleHttp\json_decode($json);
         $result = [];
 
-        foreach($data->hits->hits as $hit) {
+        foreach ($data->hits->hits as $hit) {
             $companyData = $hit->_source->Vrvirksomhed;
             $virksomhedMetadata = $companyData->virksomhedMetadata;
             $nyesteBeliggenhedsadresse = $virksomhedMetadata->nyesteBeliggenhedsadresse;
@@ -85,6 +87,7 @@ class CvrProvider implements CompanyProviderInterface
                 'company_email' => $this->getContact($companyData->virksomhedMetadata->nyesteKontaktoplysninger, 1),
             ]);
         }
+
         return $result;
     }
 
@@ -110,12 +113,12 @@ class CvrProvider implements CompanyProviderInterface
             case 'OPLØSTEFTERKONKURS':
                 return Company::COMPANY_STATUS_DISSOLVED_AFTER_BANKRUPTCY;
         }
-        
+
         throw new UnknownCompanyStatus($status);
     }
 
     /**
-     * Get contact information
+     * Get contact information.
      * @param $contact
      * @param int $location
      * @return null
@@ -126,13 +129,13 @@ class CvrProvider implements CompanyProviderInterface
     }
 
     /**
-     * Format address to a friendly format
+     * Format address to a friendly format.
      * @param $address
      * @return string
      */
     protected function formatAddress($address)
     {
-        return trim(sprintf("%s %s%s, %s %s",
+        return trim(sprintf('%s %s%s, %s %s',
             $address->vejnavn,
             $address->husnummerFra,
             $address->bogstavFra,
