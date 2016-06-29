@@ -3,7 +3,6 @@
 namespace Ageras\Sherlock\Providers;
 
 use Ageras\Sherlock\Models\Company;
-use Ageras\Sherlock\Models\EmptyResult;
 use Ageras\Sherlock\Models\SingleResultExpected;
 
 interface CompanyProviderInterface
@@ -25,8 +24,10 @@ interface CompanyProviderInterface
      * if no result was returned by the API.
      *
      * @param $vatNumber
-     * @return Company|null
+     *
      * @throws SingleResultExpected
+     *
+     * @return Company|null
      */
     public function companyByVatNumber($vatNumber);
 
@@ -34,6 +35,7 @@ interface CompanyProviderInterface
      * Returns an array of companies.
      *
      * @param $vatNumber
+     *
      * @return array
      */
     public function companiesByVatNumber($vatNumber);
@@ -42,6 +44,7 @@ interface CompanyProviderInterface
      * Returns an array of companies.
      *
      * @param $name
+     *
      * @return array
      */
     public function companiesByName($name);

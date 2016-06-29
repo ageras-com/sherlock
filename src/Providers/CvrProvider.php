@@ -19,7 +19,7 @@ class CvrProvider implements CompanyProviderInterface
     {
         $result = $this->companiesByVatNumber($vatNumber);
 
-        if(count($result) > 1) {
+        if (count($result) > 1) {
             throw new SingleResultExpected();
         }
 
@@ -29,22 +29,25 @@ class CvrProvider implements CompanyProviderInterface
     public function companiesByVatNumber($vatNumber)
     {
         $vatNumber = urlencode($vatNumber);
-        return $this->query('cvrNummer:' . $vatNumber);
+
+        return $this->query('cvrNummer:'.$vatNumber);
     }
 
     public function companiesByName($name)
     {
         $name = urlencode($name);
-        return $this->query('Vrvirksomhed.virksomhedMetadata.nyesteNavn.navn:' . $name);
+
+        return $this->query('Vrvirksomhed.virksomhedMetadata.nyesteNavn.navn:'.$name);
     }
 
     /**
      * @param $string
+     *
      * @return array
      */
     protected function query($string)
     {
-        $url = $this->serviceUrl . '/_search';
+        $url = $this->serviceUrl.'/_search';
         $client = new Client();
 
         $response = $client->get($url, [
@@ -62,6 +65,7 @@ class CvrProvider implements CompanyProviderInterface
 
     /**
      * @param $json
+     *
      * @return array
      */
     protected function formatResult($json)
@@ -69,22 +73,23 @@ class CvrProvider implements CompanyProviderInterface
         $data = \GuzzleHttp\json_decode($json);
         $result = [];
 
-        foreach($data->hits->hits as $hit) {
+        foreach ($data->hits->hits as $hit) {
             $companyData = $hit->_source->Vrvirksomhed;
             $virksomhedMetadata = $companyData->virksomhedMetadata;
             $nyesteBeliggenhedsadresse = $virksomhedMetadata->nyesteBeliggenhedsadresse;
             $result[] = new Company([
-                'company_name' => $virksomhedMetadata->nyesteNavn->navn,
-                'company_status' => $this->getStatus($virksomhedMetadata->sammensatStatus),
+                'company_name'                => $virksomhedMetadata->nyesteNavn->navn,
+                'company_status'              => $this->getStatus($virksomhedMetadata->sammensatStatus),
                 'company_registration_number' => $companyData->regNummer,
-                'company_vat_number' => $companyData->cvrNummer,
-                'company_address' => $this->formatAddress($nyesteBeliggenhedsadresse),
-                'company_city' => $nyesteBeliggenhedsadresse->postdistrikt,
-                'company_postcode' => $nyesteBeliggenhedsadresse->postnummer,
-                'company_phone_number' => $this->getContact($companyData->virksomhedMetadata->nyesteKontaktoplysninger),
-                'company_email' => $this->getContact($companyData->virksomhedMetadata->nyesteKontaktoplysninger, 1),
+                'company_vat_number'          => $companyData->cvrNummer,
+                'company_address'             => $this->formatAddress($nyesteBeliggenhedsadresse),
+                'company_city'                => $nyesteBeliggenhedsadresse->postdistrikt,
+                'company_postcode'            => $nyesteBeliggenhedsadresse->postnummer,
+                'company_phone_number'        => $this->getContact($companyData->virksomhedMetadata->nyesteKontaktoplysninger),
+                'company_email'               => $this->getContact($companyData->virksomhedMetadata->nyesteKontaktoplysninger, 1),
             ]);
         }
+
         return $result;
     }
 
@@ -110,14 +115,16 @@ class CvrProvider implements CompanyProviderInterface
             case 'OPLØSTEFTERKONKURS':
                 return Company::COMPANY_STATUS_DISSOLVED_AFTER_BANKRUPTCY;
         }
-        
+
         throw new UnknownCompanyStatus($status);
     }
 
     /**
-     * Get contact information
+     * Get contact information.
+     *
      * @param $contact
      * @param int $location
+     *
      * @return null
      */
     protected function getContact($contact, $location = 0)
@@ -126,13 +133,15 @@ class CvrProvider implements CompanyProviderInterface
     }
 
     /**
-     * Format address to a friendly format
+     * Format address to a friendly format.
+     *
      * @param $address
+     *
      * @return string
      */
     protected function formatAddress($address)
     {
-        return trim(sprintf("%s %s%s, %s %s",
+        return trim(sprintf('%s %s%s, %s %s',
             $address->vejnavn,
             $address->husnummerFra,
             $address->bogstavFra,

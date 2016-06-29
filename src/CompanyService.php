@@ -21,8 +21,10 @@ class CompanyService
      *
      * @param $vatNumber
      * @param $geoCode
-     * @return Company|null
+     *
      * @throws SingleResultExpected
+     *
+     * @return Company|null
      */
     public function companyByVatNumber($vatNumber, $geoCode)
     {
@@ -43,18 +45,20 @@ class CompanyService
      *
      * @param $vatNumber
      * @param $geoCode
-     * @return Company
+     *
      * @throws EmptyResult|SingleResultExpected
+     *
+     * @return Company
      */
     public function companyByVatNumberOrFail($vatNumber, $geoCode)
     {
         $result = $this->companyByVatNumber($vatNumber, $geoCode);
 
         /* Throw exception if no company was found */
-        if(is_null($result)) {
+        if (is_null($result)) {
             throw new EmptyResult();
         }
-        
+
         return $result;
     }
 
@@ -63,6 +67,7 @@ class CompanyService
      *
      * @param $vatNumber
      * @param $geoCode
+     *
      * @return array
      */
     public function companiesByVatNumber($vatNumber, $geoCode)
@@ -80,12 +85,12 @@ class CompanyService
         return $result;
     }
 
-
     /**
      * Returns an array of companies.
      *
      * @param $name
      * @param $geoCode
+     *
      * @return array
      */
     public function companiesByName($name, $geoCode)
@@ -104,17 +109,18 @@ class CompanyService
     }
 
     /**
-     * Returns an array of providers based on geo code
+     * Returns an array of providers based on geo code.
      *
      * @param $geoCode
+     *
      * @return array
      */
     public function providers($geoCode)
     {
-        if(!isset($this->providers[$geoCode])) {
+        if (!isset($this->providers[$geoCode])) {
             return [];
         }
 
-        return (array)$this->providers[$geoCode];
+        return (array) $this->providers[$geoCode];
     }
 }
