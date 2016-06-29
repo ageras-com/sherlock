@@ -117,7 +117,7 @@ class CompanyService
      */
     public function providers($geoCode)
     {
-        if (!isset($this->providers[$geoCode])) {
+        if (! isset($this->providers[$geoCode])) {
             return [];
         }
 
