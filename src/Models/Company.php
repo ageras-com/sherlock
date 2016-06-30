@@ -27,6 +27,7 @@ class Company
     const COMPANY_STATUS_DISSOLVED_FOLLOWING_STATEMENT = 7;
     const COMPANY_STATUS_UNDER_VOLUNTARY_LIQUIDATION = 8;
     const COMPANY_STATUS_DISSOLVED_AFTER_BANKRUPTCY = 9;
+    const COMPANY_STATUS_DISSOLVED_AFTER_MERGER = 10;
 
     public function __construct(array $data = [])
     {

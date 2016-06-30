@@ -114,6 +114,8 @@ class CvrProvider implements CompanyProviderInterface
                 return Company::COMPANY_STATUS_UNDER_VOLUNTARY_LIQUIDATION;
             case 'OPLØSTEFTERKONKURS':
                 return Company::COMPANY_STATUS_DISSOLVED_AFTER_BANKRUPTCY;
+            case 'OPLØSTEFTERFUSION':
+                return Company::COMPANY_STATUS_DISSOLVED_AFTER_MERGER;
         }
 
         throw new UnknownCompanyStatus($status);
