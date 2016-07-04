@@ -84,7 +84,6 @@ class EUProvider implements CompanyProviderInterface
                 return trim($address);
             }
         }
-        return null;
     }
 
     /**
