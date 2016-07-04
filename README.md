@@ -6,21 +6,28 @@
 [![License](https://poser.pugx.org/ageras/sherlock/license)](https://packagist.org/packages/ageras/sherlock)
 
 ## Description
-Integrations to lookup companies.
+Sherlock allows you to seamlessly integrate with various databases containing corporation data. Sherlock provides a generic interface to databases across countries.
 
-## Requirements
-General requirements.
+Available data sources:
 
-### Packages
-    "guzzlehttp/guzzle": "^6.2",
-    "vlucas/phpdotenv": "^2.2"
+* **Denmark**: CVR (Denmark's Central Business Registry). Requires login.
 
-### Danish Provider
-Danish service provider uses virk.dk elastic search for validation and getting information about a company. 
-This credentials needs to be obtained from the proper authorities. [virkdata](https://www.gitbook.com/book/virkdata/open-data-school/details)
+Coming soon:
 
+* **Other EU countries**: EU VIES.
+
+## Provider-specific configuration
+
+### Denmark - CVR registry
+
+The Danish data provider is an ElasticSearch instance provided by the Danish authorities. Go to [CVR.dk](http://datahub.virk.dk/dataset/system-til-system-adgang-til-cvr-data) to read more about obtaining credentials.
+
+In order to use the provider, please provide the following ENV variables with the credentials to use for the CVR ElasticSearch instance:
+
+```
     COMPANY_SERVICE_CVR_USERNAME=
     COMPANY_SERVICE_CVR_PASSWORD=
+```
 
 ## Contributing
 
@@ -37,11 +44,12 @@ If you discover a security vulnerability within Sherlock package, write an email
 Ageras' follows the PSR-2 coding standard and the [PSR-4](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-4-autoloader.md) autoloading standard.
 
 ### StyleCI
- StyleCI automatically fixes code style to match the standard.
+StyleCI automatically fixes code style to match the standard.
 
 ## TODO
 
 - [x] Danish Provider
+- [ ] EU VIES provider
 - [ ] Swedish Provider
 - [ ] Norwegian Provider
 - [ ] Dutch Provider
@@ -50,7 +58,7 @@ Ageras' follows the PSR-2 coding standard and the [PSR-4](https://github.com/php
 ## License
 
 
-	Copyright (c) 2016: Ageras Aps and other contributors:
+	Copyright (c) 2016: Ageras A/S and other contributors:
 	
 	Permission is hereby granted, free of charge, to any person 
 	obtaining a copy of this software and associated documentation 
