@@ -43,7 +43,7 @@ class EUProvider implements CompanyProviderInterface
             $search = new SoapClient($this->serviceUrl);
             $result = $search->checkVat(['countryCode' => $geo_code, 'vatNumber' => $string]);
 
-            return $this->formatResult($result);
+            return count($result) > 0 ? $this->formatResult($result) : null;
 
         } catch (SoapFault $e) {
             throw new SoapClientException($e);
