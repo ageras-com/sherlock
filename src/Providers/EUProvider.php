@@ -11,13 +11,13 @@ use Ageras\Sherlock\Exceptions\SoapClientException;
 class EUProvider implements CompanyProviderInterface
 {
     /**
-     * Service URL
+     * Service URL.
      * @var string
      */
     protected $serviceUrl = 'http://ec.europa.eu/taxation_customs/vies/checkVatService.wsdl';
 
     /**
-     * Geo code
+     * Geo code.
      * @var string
      */
     private $geo_code;
@@ -32,7 +32,7 @@ class EUProvider implements CompanyProviderInterface
     }
 
     /**
-     * Query builder
+     * Query builder.
      * @param $string
      * @return array
      */
@@ -44,14 +44,13 @@ class EUProvider implements CompanyProviderInterface
             $result = $search->checkVat(['countryCode' => $geo_code, 'vatNumber' => $string]);
 
             return $this->formatResult($result);
-
         } catch (SoapFault $e) {
             throw new SoapClientException($e);
         }
     }
 
     /**
-     * Format result
+     * Format result.
      * @param $data
      * @return array
      */
@@ -73,7 +72,7 @@ class EUProvider implements CompanyProviderInterface
     }
 
     /**
-     * Format address
+     * Format address.
      * @param $data
      * @return null|string
      */
@@ -81,15 +80,14 @@ class EUProvider implements CompanyProviderInterface
     {
         $datas = explode("\n", $data);
         foreach ($datas as $address) {
-            if(!empty($address)){
+            if (! empty($address)) {
                 return trim($address);
             }
         }
-        return null;
     }
 
     /**
-     * Format city
+     * Format city.
      * @param $data
      * @return null|string
      */
@@ -97,11 +95,12 @@ class EUProvider implements CompanyProviderInterface
     {
         $data = explode(' ', $data);
         $city = end($data);
+
         return isset($city) ? trim($city) : null;
     }
 
     /**
-     * Format postcode
+     * Format postcode.
      * @param $data
      * @return null
      */
@@ -116,18 +115,19 @@ class EUProvider implements CompanyProviderInterface
     }
 
     /**
-     * Get Company by vat number
+     * Get Company by vat number.
      * @param $vatNumber
      * @return array
      */
     public function companyByVatNumber($vatNumber)
     {
         $result = $this->query($this->formatVatNumber($vatNumber));
+
         return $result;
     }
 
     /**
-     * Format vat number, clean it in case it does contains EU standard, DK123345556
+     * Format vat number, clean it in case it does contains EU standard, DK123345556.
      * @param $string
      * @return string
      */
@@ -137,11 +137,12 @@ class EUProvider implements CompanyProviderInterface
         if (strtoupper($this->geo_code) == $geo_location) {
             $string = substr($string, 2);
         }
+
         return $string;
     }
 
     /**
-     * Remove empty values from array
+     * Remove empty values from array.
      * @param $data
      * @return array
      */
