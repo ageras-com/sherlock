@@ -136,6 +136,7 @@ class EUProvider implements CompanyProviderInterface
      */
     protected function formatVatNumber($string)
     {
+        $string = preg_replace("/[^A-Za-z0-9]/", "", $string);
         $geo_location = substr($string, 0, 2);
         if (strtoupper($this->geo_code) == $geo_location) {
             $string = substr($string, 2);
