@@ -108,8 +108,8 @@ class EUProvider implements CompanyProviderInterface
     {
         $data = explode("\n", $data);
         $result = $this->cleanResponse($data);
-        if(!isset($result[2])){
-            return null;
+        if (! isset($result[2])) {
+            return;
         }
         $post_code = $result[2];
         $post_code = explode(' ', $post_code);
