@@ -1,4 +1,5 @@
 <?php
+
 namespace Ageras\Sherlock\Models;
 
 class AnnualReport
