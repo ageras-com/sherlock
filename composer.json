@@ -6,7 +6,12 @@
         {
             "name": "Nicolai Østby",
             "email": "nicolaiostby@gmail.com"
-        }
+        },
+		{
+		  "name": "Jorge Y. C. Rodriguez",
+		  "email": "self@jorgerodriguez.dk",
+		  "homepage": "http://blog.jorgerodriguez.dk",
+		}
     ],
     "require": {
         "guzzlehttp/guzzle": "^6.2",
