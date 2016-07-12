@@ -1,4 +1,5 @@
 <?php
+
 namespace Ageras\Sherlock\Providers;
 
 use GuzzleHttp\Client;
@@ -6,7 +7,6 @@ use Ageras\Sherlock\Models\AnnualReport;
 
 class AnnualReportProvider implements IAnnualReportProvider
 {
-
     protected $_service_url = 'http://distribution.virk.dk/offentliggoerelser';
 
     public function __construct($geoCode)
@@ -23,6 +23,7 @@ class AnnualReportProvider implements IAnnualReportProvider
     public function latestAnnualReportByVatNumber($vatNumber)
     {
         $arp = $this->annualReportsByVatNumber($vatNumber);
+
         return end($arp);
     }
 
@@ -70,9 +71,8 @@ class AnnualReportProvider implements IAnnualReportProvider
     {
         $result = [];
         foreach ($documents as $document) {
-            if($document->dokumentMimeType == AnnualReport::SUPPORTED_FORMAT &&
-                $document->dokumentType == AnnualReport::DOCUMENT_TYPE)
-            {
+            if ($document->dokumentMimeType == AnnualReport::SUPPORTED_FORMAT &&
+                $document->dokumentType == AnnualReport::DOCUMENT_TYPE) {
                 $result = [
                     'url' => $document->dokumentUrl,
                     'mine_type' => $document->dokumentMimeType,
