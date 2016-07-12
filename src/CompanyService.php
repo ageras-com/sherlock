@@ -13,6 +13,8 @@ class CompanyService
     protected $providers = [
         'dk' => CvrProvider::class,
         'nl' => EUProvider::class,
+        'de' => EUProvider::class,
+        'se' => EUProvider::class,
     ];
 
     /**
