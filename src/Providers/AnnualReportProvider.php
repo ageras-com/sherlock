@@ -66,6 +66,11 @@ class AnnualReportProvider implements IAnnualReportProvider
         return $result;
     }
 
+    /**
+     * Get pdf documents
+     * @param $documents
+     * @return array
+     */
     private function getAnnualReportData($documents)
     {
         $result = [];
