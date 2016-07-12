@@ -68,7 +68,7 @@ class AnnualReportProvider implements IAnnualReportProvider
     }
 
     /**
-     * Get pdf documents
+     * Get pdf documents.
      * @param $documents
      * @return array
      */
