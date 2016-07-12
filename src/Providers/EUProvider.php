@@ -3,10 +3,10 @@
 namespace Ageras\Sherlock\Providers;
 
 use Ageras\Sherlock\Exceptions\MethodNoImplemented;
+use Ageras\Sherlock\Exceptions\SoapClientException;
 use Ageras\Sherlock\Models\Company;
 use SoapClient;
 use SoapFault;
-use Ageras\Sherlock\Exceptions\SoapClientException;
 
 class EUProvider implements CompanyProviderInterface
 {
@@ -32,6 +32,18 @@ class EUProvider implements CompanyProviderInterface
     }
 
     /**
+     * Get Company by vat number.
+     * @param $vatNumber
+     * @return array
+     */
+    public function companyByVatNumber($vatNumber)
+    {
+        $result = $this->query($this->formatVatNumber($vatNumber));
+
+        return $result;
+    }
+
+    /**
      * Query builder.
      * @param $string
      * @return array
@@ -41,7 +53,10 @@ class EUProvider implements CompanyProviderInterface
         $geo_code = strtoupper($this->geo_code);
         try {
             $search = new SoapClient($this->serviceUrl);
-            $result = $search->checkVat(['countryCode' => $geo_code, 'vatNumber' => $string]);
+            $result = $search->checkVat([
+                'countryCode' => $geo_code,
+                'vatNumber'   => $string,
+            ]);
 
             return count($result) > 0 ? $this->formatResult($result) : null;
         } catch (SoapFault $e) {
@@ -56,14 +71,15 @@ class EUProvider implements CompanyProviderInterface
      */
     protected function formatResult($data)
     {
+        $address = $this->formatCompanyAddress($data->address);
         $result[] = new Company([
             'company_name'                => $data->name,
             'company_status'              => $data->valid ? Company::COMPANY_STATUS_ACTIVE : Company::COMPANY_STATUS_CEASED,
             'company_registration_number' => null,
             'company_vat_number'          => $data->vatNumber,
-            'company_address'             => $this->formatAddress($data->address),
-            'company_city'                => $this->formatCity($data->address),
-            'company_postcode'            => $this->formatPostcode($data->address),
+            'company_address'             => $address['address'],
+            'company_city'                => $address['city'],
+            'company_postcode'            => $address['postcode'],
             'company_phone_number'        => null,
             'company_email'               => null,
         ]);
@@ -71,61 +87,27 @@ class EUProvider implements CompanyProviderInterface
         return $result;
     }
 
-    /**
-     * Format address.
-     * @param $data
-     * @return null|string
-     */
-    protected function formatAddress($data)
+    private function formatCompanyAddress($address)
     {
-        $datas = explode("\n", $data);
-        foreach ($datas as $address) {
-            if (! empty($address)) {
-                return trim($address);
-            }
+        $result = [];
+        $address = explode("\n", $address);
+        $address = array_filter($address);
+        $cp = isset($address[2]) ? explode(' ', $address[2]) : null;
+        $result['address'] = isset($address[1]) ? $this->removeLeadingZeros($address[1]) : null;
+        $result['city'] = isset($cp[1]) ? $cp[1] : null;
+        $result['postcode'] = isset($cp[0]) ? $cp[0] : null;
+
+        return $result;
+    }
+
+    private function removeLeadingZeros($string)
+    {
+        $strings = explode(' ', $string);
+        $result = [];
+        foreach ($strings as $string) {
+            array_push($result, ltrim($string, '0'));
         }
-    }
-
-    /**
-     * Format city.
-     * @param $data
-     * @return null|string
-     */
-    protected function formatCity($data)
-    {
-        $data = explode(' ', $data);
-        $city = end($data);
-
-        return isset($city) ? trim($city) : null;
-    }
-
-    /**
-     * Format postcode.
-     * @param $data
-     * @return null
-     */
-    protected function formatPostcode($data)
-    {
-        $data = explode("\n", $data);
-        $result = $this->cleanResponse($data);
-        if (! isset($result[2])) {
-            return;
-        }
-        $post_code = $result[2];
-        $post_code = explode(' ', $post_code);
-
-        return isset($post_code[0]) ? $post_code[0] : null;
-    }
-
-    /**
-     * Get Company by vat number.
-     * @param $vatNumber
-     * @return array
-     */
-    public function companyByVatNumber($vatNumber)
-    {
-        $result = $this->query($this->formatVatNumber($vatNumber));
-
+        $result = implode(' ', $result);
         return $result;
     }
 
@@ -134,7 +116,7 @@ class EUProvider implements CompanyProviderInterface
      * @param $string
      * @return string
      */
-    protected function formatVatNumber($string)
+    private function formatVatNumber($string)
     {
         $string = preg_replace('/[^A-Za-z0-9]/', '', $string);
         $geo_location = substr($string, 0, 2);
@@ -143,16 +125,6 @@ class EUProvider implements CompanyProviderInterface
         }
 
         return $string;
-    }
-
-    /**
-     * Remove empty values from array.
-     * @param $data
-     * @return array
-     */
-    protected function cleanResponse($data)
-    {
-        return array_filter($data);
     }
 
     public function companiesByVatNumber($vatNumber)
