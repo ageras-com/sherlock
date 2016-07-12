@@ -88,7 +88,7 @@ class EUProvider implements CompanyProviderInterface
     }
 
     /**
-     * Format company address
+     * Format company address.
      * @param $address
      * @return array
      */
@@ -106,7 +106,7 @@ class EUProvider implements CompanyProviderInterface
     }
 
     /**
-     * Remove all leading zeros from address
+     * Remove all leading zeros from address.
      * @param $string
      * @return array|string
      */
