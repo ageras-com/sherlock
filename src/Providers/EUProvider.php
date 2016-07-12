@@ -87,6 +87,11 @@ class EUProvider implements CompanyProviderInterface
         return $result;
     }
 
+    /**
+     * Format company address.
+     * @param $address
+     * @return array
+     */
     private function formatCompanyAddress($address)
     {
         $result = [];
@@ -100,6 +105,11 @@ class EUProvider implements CompanyProviderInterface
         return $result;
     }
 
+    /**
+     * Remove all leading zeros from address.
+     * @param $string
+     * @return array|string
+     */
     private function removeLeadingZeros($string)
     {
         $strings = explode(' ', $string);
