@@ -108,6 +108,7 @@ class EUProvider implements CompanyProviderInterface
             array_push($result, ltrim($string, '0'));
         }
         $result = implode(' ', $result);
+
         return $result;
     }
 
