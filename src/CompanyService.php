@@ -6,13 +6,11 @@ use Ageras\Sherlock\Exceptions\EmptyResult;
 use Ageras\Sherlock\Exceptions\SingleResultExpected;
 use Ageras\Sherlock\Providers\CompanyProviderInterface;
 use Ageras\Sherlock\Providers\CvrProvider;
-use Ageras\Sherlock\Providers\EUProvider;
 
 class CompanyService
 {
     protected $providers = [
         'dk' => CvrProvider::class,
-        'nl' => EUProvider::class,
     ];
 
     /**
