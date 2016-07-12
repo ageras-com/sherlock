@@ -87,7 +87,7 @@ class CvrProvider implements CompanyProviderInterface
                 'company_postcode'            => $nyesteBeliggenhedsadresse->postnummer,
                 'company_phone_number'        => $this->getContact($companyData->virksomhedMetadata->nyesteKontaktoplysninger),
                 'company_email'               => $this->getContact($companyData->virksomhedMetadata->nyesteKontaktoplysninger, 1),
-                'company_date_incorporation'  => $virksomhedMetadata->stiftelsesDato,
+                'company_incorporation_date'  => $virksomhedMetadata->stiftelsesDato,
             ]);
         }
 

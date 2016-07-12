@@ -14,7 +14,7 @@ class Company
         'company_postcode',
         'company_phone_number',
         'company_email',
-        'company_date_incorporation',
+        'company_incorporation_date',
     ];
 
     protected $data;
