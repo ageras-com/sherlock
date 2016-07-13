@@ -52,9 +52,9 @@ class CvrProvider implements CompanyProviderInterface
             'json' => [
                 'query' => [
                     'match' => [
-                        $field => $value
-                    ]
-                ]
+                        $field => $value,
+                    ],
+                ],
             ],
             'auth' => [
                 getenv('COMPANY_SERVICE_CVR_USERNAME'),
