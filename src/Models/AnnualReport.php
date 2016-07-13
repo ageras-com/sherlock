@@ -15,7 +15,7 @@ class AnnualReport
         'publish_at',
         'updated_at',
         'document_url',
-        'document_mine_type',
+        'document_mime_type',
     ];
 
     protected $data;

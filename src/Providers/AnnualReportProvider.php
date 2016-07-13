@@ -60,7 +60,7 @@ class AnnualReportProvider implements IAnnualReportProvider
                 'publish_at' => $annual_report->indlaesningsTidspunkt,
                 'updated_at' => $annual_report->sidstOpdateret,
                 'document_url' => $document['url'],
-                'document_mine_type' => $document['mine_type'],
+                'document_mime_type' => $document['mime_type'],
             ]);
         }
 
@@ -80,7 +80,7 @@ class AnnualReportProvider implements IAnnualReportProvider
                 $document->dokumentType == AnnualReport::DOCUMENT_TYPE) {
                 $result = [
                     'url' => $document->dokumentUrl,
-                    'mine_type' => $document->dokumentMimeType,
+                    'mime_type' => $document->dokumentMimeType,
                 ];
             }
         }
