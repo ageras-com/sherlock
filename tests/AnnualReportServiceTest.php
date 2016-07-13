@@ -25,7 +25,6 @@ class AnnualReportServiceTest extends TestCase
         $this->assertEquals(AnnualReport::class, get_class($company));
     }
 
-
     /**
      * @expectedException \Ageras\Sherlock\Exceptions\EmptyResult
      */
