@@ -3,6 +3,7 @@
 namespace Ageras\Sherlock\Providers;
 
 use Ageras\Sherlock\Exceptions\MethodNoImplemented;
+use Ageras\Sherlock\Exceptions\SingleResultExpected;
 use Ageras\Sherlock\Exceptions\SoapClientException;
 use Ageras\Sherlock\Models\Company;
 use SoapClient;
@@ -35,12 +36,17 @@ class EUProvider implements CompanyProviderInterface
      * Get Company by vat number.
      * @param $vatNumber
      * @return array
+     * @throws SingleResultExpected
      */
     public function companyByVatNumber($vatNumber)
     {
         $result = $this->query($this->formatVatNumber($vatNumber));
 
-        return $result;
+        if (count($result) > 1) {
+            throw new SingleResultExpected();
+        }
+
+        return isset($result[0]) ? $result[0] : null;
     }
 
     /**

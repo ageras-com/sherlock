@@ -23,8 +23,7 @@ class AnnualReportProvider implements IAnnualReportProvider
     public function latestAnnualReportByVatNumber($vatNumber)
     {
         $arp = $this->annualReportsByVatNumber($vatNumber);
-
-        return end($arp);
+        return $arp ? end($arp) : null;
     }
 
     protected function query($string)
