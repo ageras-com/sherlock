@@ -79,13 +79,13 @@ class EUProvider implements CompanyProviderInterface
     {
         $address = $this->formatCompanyAddress($data->address);
         $result[] = new Company([
-            'company_name'                => ucfirst(strtolower($data->name)),
+            'company_name'                => ucwords(strtolower($data->name)),
             'company_status'              => $data->valid ? Company::COMPANY_STATUS_ACTIVE : Company::COMPANY_STATUS_CEASED,
             'company_registration_number' => null,
             'company_vat_number'          => $data->vatNumber,
-            'company_address'             => ucfirst(strtolower($address['address'])),
-            'company_city'                => ucfirst(strtolower($address['city'])),
-            'company_postcode'            => ucfirst(strtolower($address['postcode'])),
+            'company_address'             => ucwords(strtolower($address['address'])),
+            'company_city'                => ucwords(strtolower($address['city'])),
+            'company_postcode'            => ucwords(strtolower($address['postcode'])),
             'company_phone_number'        => null,
             'company_email'               => null,
         ]);

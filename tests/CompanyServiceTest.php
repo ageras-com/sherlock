@@ -32,7 +32,7 @@ class CompanyServiceTest extends TestCase
         $service = new CompanyService();
         $company = $service->companyByVatNumber('NL853220888B01', 'nl');
         $this->assertEquals(Company::class, get_class($company));
-        $this->assertEquals('Thinq b.v.', $company->company_name);
+        $this->assertEquals('Thinq B.v.', $company->company_name);
     }
 
     public function test_that_empty_result()
