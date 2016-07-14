@@ -37,8 +37,8 @@ class CvrAnnualReportProvider implements AnnualReportProviderInterface
                 'q' => $string,
             ],
             'auth' => [
-                getenv('COMPANY_SERVICE_VIRK_USERNAME'),
-                getenv('COMPANY_SERVICE_VIRK_PASSWORD'),
+                getenv('COMPANY_SERVICE_CVR_USERNAME'),
+                getenv('COMPANY_SERVICE_CVR_PASSWORD'),
             ],
         ]);
 
