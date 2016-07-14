@@ -6,15 +6,12 @@
 [![License](https://poser.pugx.org/ageras/sherlock/license)](https://packagist.org/packages/ageras/sherlock)
 
 ## Description
-Sherlock allows you to seamlessly integrate with various databases containing corporation data. Sherlock provides a generic interface to databases across countries.
+Sherlock provides a generic interface over various databases containing company data such as addresses, VAT registration numbers, contact information and annual reports. Sherlock will, based on the country to search in, select the appropriate provider(s) to search.
 
-Available data sources:
+Currently Sherlock retrieves data from the following data providers:
 
-* **Denmark**: CVR (Denmark's Central Business Registry). Requires login.
-
-Coming soon:
-
-* **Other EU countries**: EU VIES.
+* **Denmark**: [VIRK](http://cvr.dk) (Danish Central Business Registry - CVR). Requires you to obtain a user (see below).
+* **European Union**: [EU VIES](http://ec.europa.eu/taxation_customs/vies/).
 
 ## Provider-specific configuration
 
@@ -49,7 +46,7 @@ StyleCI automatically fixes code style to match the standard.
 ## TODO
 
 - [x] Danish Provider
-- [ ] EU VIES provider
+- [x] EU VIES provider
 - [ ] Swedish Provider
 - [ ] Norwegian Provider
 - [ ] Dutch Provider
