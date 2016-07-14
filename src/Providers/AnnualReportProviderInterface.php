@@ -2,7 +2,7 @@
 
 namespace Ageras\Sherlock\Providers;
 
-interface IAnnualReportProvider
+interface AnnualReportProviderInterface
 {
     public function __construct($geoCode);
 

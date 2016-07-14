@@ -5,7 +5,7 @@ namespace Ageras\Sherlock\Providers;
 use GuzzleHttp\Client;
 use Ageras\Sherlock\Models\AnnualReport;
 
-class AnnualReportProvider implements IAnnualReportProvider
+class CvrAnnualReportProvider implements AnnualReportProviderInterface
 {
     protected $_service_url = 'http://distribution.virk.dk/offentliggoerelser';
 
@@ -37,8 +37,8 @@ class AnnualReportProvider implements IAnnualReportProvider
                 'q' => $string,
             ],
             'auth' => [
-                getenv('COMPANY_SERVICE_CVR_USERNAME'),
-                getenv('COMPANY_SERVICE_CVR_PASSWORD'),
+                getenv('COMPANY_SERVICE_VIRK_USERNAME'),
+                getenv('COMPANY_SERVICE_VIRK_PASSWORD'),
             ],
         ]);
 

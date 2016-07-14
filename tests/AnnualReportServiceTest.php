@@ -21,7 +21,7 @@ class AnnualReportServiceTest extends TestCase
     {
         $service = new AnnualReportService();
 
-        $company = $service->latestAnnalReport('33966369', 'dk');
+        $company = $service->latestAnnualReport('33966369', 'dk');
         $this->assertEquals(AnnualReport::class, get_class($company));
     }
 
@@ -31,7 +31,7 @@ class AnnualReportServiceTest extends TestCase
     public function test_that_empty_result_exception_is_thrown()
     {
         $service = new AnnualReportService();
-        $service->annualReportByVatNumberOrFail('111000', 'dk');
+        $service->latestAnnualReportByVatNumberOrFail('111000', 'dk');
     }
 
     public function test_that_no_providers_are_returned_when_geo_code_is_empty()
@@ -45,7 +45,7 @@ class AnnualReportServiceTest extends TestCase
     public function test_document_properties()
     {
         $service = new AnnualReportService();
-        $ar = $service->latestAnnalReport('33966369', 'dk');
+        $ar = $service->latestAnnualReport('33966369', 'dk');
         $this->assertEquals(AnnualReport::SUPPORTED_FORMAT, $ar->document_mime_type);
     }
 
