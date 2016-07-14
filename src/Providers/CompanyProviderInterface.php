@@ -2,8 +2,8 @@
 
 namespace Ageras\Sherlock\Providers;
 
+use Ageras\Sherlock\Exceptions\SingleResultExpected;
 use Ageras\Sherlock\Models\Company;
-use Ageras\Sherlock\Models\SingleResultExpected;
 
 interface CompanyProviderInterface
 {

@@ -27,6 +27,20 @@ class CompanyServiceTest extends TestCase
         $this->assertEquals('AGERAS A/S', $company->company_name);
     }
 
+    public function test_that_correct_company_name_is_return_by_eu_provider()
+    {
+        $service = new CompanyService();
+        $company = $service->companyByVatNumber('NL853220888B01', 'nl');
+        $this->assertEquals(Company::class, get_class($company));
+        $this->assertEquals('Thinq B.v.', $company->company_name);
+    }
+
+    public function test_that_empty_result()
+    {
+        $service = new CompanyService();
+        $service->companyByVatNumberOrFail('000000', 'nl');
+    }
+
     /**
      * @expectedException \Ageras\Sherlock\Exceptions\EmptyResult
      */
@@ -64,7 +78,8 @@ class CompanyServiceTest extends TestCase
         $service = new CompanyService();
 
         $providers = $service->providers('dk');
-
+        $nl_provider = $service->providers('nl');
+        $this->assertNotEmpty($nl_provider);
         $this->assertNotEmpty($providers);
     }
 }
