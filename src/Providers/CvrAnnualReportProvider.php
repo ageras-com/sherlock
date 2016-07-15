@@ -39,7 +39,7 @@ class CvrAnnualReportProvider implements AnnualReportProviderInterface
                         'cvrNummer' => $vatNumber,
                     ],
                 ],
-                "sort" =>  [ "offentliggoerelsesTidspunkt" => [ "order" => "asc" ]],
+                'sort' =>  ['offentliggoerelsesTidspunkt' => ['order' => 'asc']],
             ],
             'auth' => [
                 getenv('COMPANY_SERVICE_CVR_USERNAME'),
