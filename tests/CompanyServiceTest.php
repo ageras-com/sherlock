@@ -82,4 +82,15 @@ class CompanyServiceTest extends TestCase
         $this->assertNotEmpty($nl_provider);
         $this->assertNotEmpty($providers);
     }
+
+    public function test_if_list_companies_is_an_array()
+    {
+        $service = new CompanyService();
+        $cbn = $service->companiesByName('Rodriguez', 'dk');
+        $cbv = $service->companiesByVatNumber('33966369', 'dk');
+        $cbnl = $service->companiesByVatNumber('NL853220888B01', 'nl');
+        $this->assertEquals(is_array($cbn), true);
+        $this->assertEquals(is_array($cbv), true);
+        $this->assertEquals(is_array($cbnl), true);
+    }
 }
