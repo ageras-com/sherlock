@@ -92,6 +92,5 @@ class CompanyServiceTest extends TestCase
         $this->assertEquals(is_array($cbn), true);
         $this->assertEquals(is_array($cbv), true);
         $this->assertEquals(is_array($cbnl), true);
-
     }
 }
