@@ -88,6 +88,7 @@ class EUProvider implements CompanyProviderInterface
             'company_postcode'            => ucwords(strtolower($address['postcode'])),
             'company_phone_number'        => null,
             'company_email'               => null,
+            'company_incorporation_date'  => null,
         ]);
 
         return $result;
@@ -146,7 +147,7 @@ class EUProvider implements CompanyProviderInterface
 
     public function companiesByVatNumber($vatNumber)
     {
-        $result = $this->companyByVatNumber($vatNumber);
+        $result[] = $this->companyByVatNumber($vatNumber);
 
         return $result;
     }
