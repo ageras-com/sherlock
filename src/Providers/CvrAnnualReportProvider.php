@@ -64,8 +64,8 @@ class CvrAnnualReportProvider implements AnnualReportProviderInterface
                 'created_at' => $annual_report->offentliggoerelsesTidspunkt,
                 'publish_at' => $annual_report->indlaesningsTidspunkt,
                 'updated_at' => $annual_report->sidstOpdateret,
-                'document_url' => $document['url'],
-                'document_mime_type' => $document['mime_type'],
+                'document_url' => isset($document['url']) ? $document['url'] : null,
+                'document_mime_type' => isset($document['mime_type']) ? $document['mime_type'] : null,
             ]);
         }
 
