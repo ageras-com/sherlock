@@ -17,7 +17,7 @@ class CvrAnnualReportProvider implements AnnualReportProviderInterface
     {
         $vatNumber = urlencode($vatNumber);
 
-        return $this->query('cvrNummer:' . $vatNumber);
+        return $this->query($vatNumber);
     }
 
     public function latestAnnualReportByVatNumber($vatNumber)
@@ -27,14 +27,19 @@ class CvrAnnualReportProvider implements AnnualReportProviderInterface
         return $arp ? end($arp) : null;
     }
 
-    protected function query($string)
+    protected function query($vatNumber)
     {
         $url = $this->_service_url . '/_search';
         $client = new Client();
 
         $response = $client->get($url, [
-            'query' => [
-                'q' => $string,
+            'json' => [
+                'query' => [
+                    'match' => [
+                        'cvrNummer' => $vatNumber,
+                    ],
+                ],
+                "sort" =>  [ "offentliggoerelsesTidspunkt" => [ "order" => "asc" ]],
             ],
             'auth' => [
                 getenv('COMPANY_SERVICE_CVR_USERNAME'),
