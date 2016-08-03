@@ -120,6 +120,8 @@ class CvrProvider implements CompanyProviderInterface
             case 'OPLØSTEFTERFUSION':
             case 'OPLØSTEFTERSPALTNING':
                 return Company::COMPANY_STATUS_DISSOLVED_AFTER_MERGER;
+            case 'Fremtid':
+                return Company::COMPANY_STATUS_WILL_BECOME_ACTIVE;
         }
 
         throw new UnknownCompanyStatus($status);
