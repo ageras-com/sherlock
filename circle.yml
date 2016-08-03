@@ -4,4 +4,4 @@ machine:
 
 test:
   post:
-    - bash <(curl -s https://codecov.io/bash) -t 96022f3c-594d-4456-8df4-f5f19ae5da9a
+    - bash <(curl -s https://codecov.io/bash)
