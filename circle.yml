@@ -1,3 +1,7 @@
 machine:
   php:
     version: 5.6.14
+
+test:
+  post:
+    - bash <(curl -s https://codecov.io/bash)
