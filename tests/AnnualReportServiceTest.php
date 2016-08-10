@@ -60,7 +60,7 @@ class AnnualReportServiceTest extends TestCase
         $company_reports = $this->service->annualReportsByVatNumber('33966369', 'dk');
         $first_report = $company_reports[0];
         $this->assertEquals(AnnualReport::class, get_class($first_report));
-        $this->assertEquals(!empty($company_reports), true);
+        $this->assertEquals(! empty($company_reports), true);
         $this->assertEquals(is_array($company_reports), true);
     }
 
