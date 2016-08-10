@@ -3,6 +3,7 @@
 namespace Ageras\Sherlock\Providers;
 
 use Ageras\Sherlock\Exceptions\MethodNoImplemented;
+use Ageras\Sherlock\Exceptions\SingleResultExpected;
 use Ageras\Sherlock\Exceptions\SoapClientException;
 use Ageras\Sherlock\Models\Company;
 use SoapClient;
@@ -35,12 +36,17 @@ class EUProvider implements CompanyProviderInterface
      * Get Company by vat number.
      * @param $vatNumber
      * @return array
+     * @throws SingleResultExpected
      */
     public function companyByVatNumber($vatNumber)
     {
         $result = $this->query($this->formatVatNumber($vatNumber));
 
-        return $result;
+        if (count($result) > 1) {
+            throw new SingleResultExpected();
+        }
+
+        return isset($result[0]) ? $result[0] : null;
     }
 
     /**
@@ -73,15 +79,16 @@ class EUProvider implements CompanyProviderInterface
     {
         $address = $this->formatCompanyAddress($data->address);
         $result[] = new Company([
-            'company_name'                => $data->name,
+            'company_name'                => ucwords(strtolower($data->name)),
             'company_status'              => $data->valid ? Company::COMPANY_STATUS_ACTIVE : Company::COMPANY_STATUS_CEASED,
             'company_registration_number' => null,
             'company_vat_number'          => $data->vatNumber,
-            'company_address'             => $address['address'],
-            'company_city'                => $address['city'],
-            'company_postcode'            => $address['postcode'],
+            'company_address'             => ucwords(strtolower($address['address'])),
+            'company_city'                => ucwords(strtolower($address['city'])),
+            'company_postcode'            => ucwords(strtolower($address['postcode'])),
             'company_phone_number'        => null,
             'company_email'               => null,
+            'company_incorporation_date'  => null,
         ]);
 
         return $result;
@@ -140,7 +147,9 @@ class EUProvider implements CompanyProviderInterface
 
     public function companiesByVatNumber($vatNumber)
     {
-        throw new MethodNoImplemented('Method not implemented');
+        $result[] = $this->companyByVatNumber($vatNumber);
+
+        return $result;
     }
 
     public function companiesByName($name)
