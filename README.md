@@ -1,10 +1,11 @@
 # Ageras Sherlock
 [![Latest Stable Version](https://poser.pugx.org/ageras/sherlock/v/stable)](https://packagist.org/packages/ageras/sherlock)
-[![CircleCI](https://circleci.com/gh/ageras-com/sherlock.svg?style=svg)](https://circleci.com/gh/ageras-com/sherlock)
 [![Total Downloads](https://poser.pugx.org/ageras/sherlock/downloads)](https://packagist.org/packages/ageras/sherlock)
 [![Monthly Downloads](https://poser.pugx.org/ageras/sherlock/d/monthly)](https://packagist.org/packages/ageras/sherlock)
 [![Latest Unstable Version](https://poser.pugx.org/ageras/sherlock/v/unstable)](https://packagist.org/packages/ageras/sherlock)
 [![License](https://poser.pugx.org/ageras/sherlock/license)](https://packagist.org/packages/ageras/sherlock)
+[![CircleCI](https://circleci.com/gh/ageras-com/sherlock.svg?style=svg)](https://circleci.com/gh/ageras-com/sherlock)
+[![codecov](https://codecov.io/gh/ageras-com/sherlock/branch/master/graph/badge.svg)](https://codecov.io/gh/ageras-com/sherlock)
 
 ## Description
 Sherlock provides a generic interface over various databases containing company data such as addresses, VAT registration numbers, contact information and annual reports. Sherlock will, based on the country to search in, select the appropriate provider(s) to search.
