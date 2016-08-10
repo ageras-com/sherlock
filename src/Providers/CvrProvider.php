@@ -2,7 +2,6 @@
 
 namespace Ageras\Sherlock\Providers;
 
-use Ageras\Sherlock\Exceptions\UnknownCompanyStatus;
 use Ageras\Sherlock\Models\Company;
 use Ageras\Sherlock\Models\SingleResultExpected;
 use GuzzleHttp\Client;
@@ -120,9 +119,9 @@ class CvrProvider implements CompanyProviderInterface
             case 'OPLØSTEFTERFUSION':
             case 'OPLØSTEFTERSPALTNING':
                 return Company::COMPANY_STATUS_DISSOLVED_AFTER_MERGER;
+            default:
+                return Company::COMPANY_STATUS_UNKNOWN;
         }
-
-        throw new UnknownCompanyStatus($status);
     }
 
     /**
