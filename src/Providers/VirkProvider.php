@@ -2,7 +2,6 @@
 
 namespace Ageras\Sherlock\Providers;
 
-use Ageras\Sherlock\Exceptions\SingleResultExpected;
 use Ageras\Sherlock\Models\Company;
 use GuzzleHttp\Client;
 
@@ -17,12 +16,14 @@ class VirkProvider implements CompanyProviderInterface
     public function companyByVatNumber($vatNumber)
     {
         $result = $this->companiesByVatNumber($vatNumber);
+
         return isset($result[0]) ? $result[0] : null;
     }
 
     public function companiesByVatNumber($vatNumber)
     {
         $vatNumber = urlencode($vatNumber);
+
         return $this->query('Vrvirksomhed.cvrNummer', $vatNumber);
     }
 
