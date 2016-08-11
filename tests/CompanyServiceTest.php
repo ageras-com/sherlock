@@ -4,7 +4,6 @@ namespace Ageras\Sherlock\Tests;
 
 use Ageras\Sherlock\CompanyService;
 use Ageras\Sherlock\Models\Company;
-use Ageras\Sherlock\Providers\VIESProvider;
 use Ageras\Sherlock\Providers\VirkProvider;
 use Dotenv\Dotenv;
 
@@ -122,7 +121,6 @@ class CompanyServiceTest extends TestCase
         $this->assertEquals($dftt, Company::COMPANY_STATUS_UNDER_VOLUNTARY_LIQUIDATION);
         $this->assertEquals($vl, Company::COMPANY_STATUS_DISSOLVED_AFTER_BANKRUPTCY);
         $this->assertEquals($uvl, Company::COMPANY_STATUS_DISSOLVED_AFTER_MERGER);
-
     }
 
     public function invokeMethod(&$object, $methodName, $parameter)
