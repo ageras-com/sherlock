@@ -5,16 +5,16 @@ namespace Ageras\Sherlock;
 use Ageras\Sherlock\Exceptions\EmptyResult;
 use Ageras\Sherlock\Exceptions\SingleResultExpected;
 use Ageras\Sherlock\Providers\CompanyProviderInterface;
-use Ageras\Sherlock\Providers\CvrProvider;
-use Ageras\Sherlock\Providers\EUProvider;
+use Ageras\Sherlock\Providers\VirkProvider;
+use Ageras\Sherlock\Providers\VIESProvider;
 
 class CompanyService
 {
     protected $providers = [
-        'dk' => CvrProvider::class,
-        'nl' => EUProvider::class,
-        'de' => EUProvider::class,
-        'se' => EUProvider::class,
+        'dk' => VirkProvider::class,
+        'nl' => VIESProvider::class,
+        'de' => VIESProvider::class,
+        'se' => VIESProvider::class,
     ];
 
     /**

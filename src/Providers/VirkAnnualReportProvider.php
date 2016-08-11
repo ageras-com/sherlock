@@ -5,7 +5,7 @@ namespace Ageras\Sherlock\Providers;
 use GuzzleHttp\Client;
 use Ageras\Sherlock\Models\AnnualReport;
 
-class CvrAnnualReportProvider implements AnnualReportProviderInterface
+class VirkAnnualReportProvider implements AnnualReportProviderInterface
 {
     protected $_service_url = 'http://distribution.virk.dk/offentliggoerelser';
 

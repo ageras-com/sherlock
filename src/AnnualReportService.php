@@ -3,19 +3,19 @@
 namespace Ageras\Sherlock;
 
 use Ageras\Sherlock\Exceptions\EmptyResult;
-use Ageras\Sherlock\Providers\CvrAnnualReportProvider;
+use Ageras\Sherlock\Providers\VirkAnnualReportProvider;
 
 class AnnualReportService
 {
     protected $providers = [
-        'dk' => CvrAnnualReportProvider::class,
+        'dk' => VirkAnnualReportProvider::class,
     ];
 
     public function annualReportsByVatNumber($vat_number, $geoCode)
     {
         $result = null;
         foreach ($this->providers($geoCode) as $provider) {
-            /** @var CvrAnnualReportProvider $provider */
+            /** @var VirkAnnualReportProvider $provider */
             $provider = new $provider($geoCode);
             $result = $provider->annualReportsByVatNumber($vat_number);
         }
@@ -27,7 +27,7 @@ class AnnualReportService
     {
         $result = null;
         foreach ($this->providers($geoCode) as $provider) {
-            /** @var CvrAnnualReportProvider $provider */
+            /** @var VirkAnnualReportProvider $provider */
             $provider = new $provider($geoCode);
             $result = $provider->latestAnnualReportByVatNumber($vat_number);
         }

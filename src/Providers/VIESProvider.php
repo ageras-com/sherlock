@@ -9,7 +9,7 @@ use Ageras\Sherlock\Models\Company;
 use SoapClient;
 use SoapFault;
 
-class EUProvider implements CompanyProviderInterface
+class VIESProvider implements CompanyProviderInterface
 {
     /**
      * Service URL.

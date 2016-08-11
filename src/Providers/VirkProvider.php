@@ -6,7 +6,7 @@ use Ageras\Sherlock\Models\Company;
 use Ageras\Sherlock\Models\SingleResultExpected;
 use GuzzleHttp\Client;
 
-class CvrProvider implements CompanyProviderInterface
+class VirkProvider implements CompanyProviderInterface
 {
     protected $serviceUrl = 'http://distribution.virk.dk/cvr-permanent';
 
@@ -56,8 +56,8 @@ class CvrProvider implements CompanyProviderInterface
                 ],
             ],
             'auth' => [
-                getenv('COMPANY_SERVICE_CVR_USERNAME'),
-                getenv('COMPANY_SERVICE_CVR_PASSWORD'),
+                getenv('COMPANY_SERVICE_VIRK_USERNAME'),
+                getenv('COMPANY_SERVICE_VIRK_PASSWORD'),
             ],
         ]);
 

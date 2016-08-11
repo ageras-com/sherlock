@@ -6,7 +6,7 @@ use Ageras\Sherlock\AnnualReportService;
 use Ageras\Sherlock\Models\AnnualReport;
 use Dotenv\Dotenv;
 
-class AnnualReportServiceTest extends TestCase
+class VirkAnnualReportServiceTest extends TestCase
 {
     /**
      * @var AnnualReportService
