@@ -42,8 +42,8 @@ class VirkAnnualReportProvider implements AnnualReportProviderInterface
                 'sort' =>  ['offentliggoerelsesTidspunkt' => ['order' => 'asc']],
             ],
             'auth' => [
-                getenv('COMPANY_SERVICE_CVR_USERNAME'),
-                getenv('COMPANY_SERVICE_CVR_PASSWORD'),
+                getenv('COMPANY_SERVICE_VIRK_USERNAME'),
+                getenv('COMPANY_SERVICE_VIRK_PASSWORD'),
             ],
         ]);
 
