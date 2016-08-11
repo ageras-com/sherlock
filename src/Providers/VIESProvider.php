@@ -42,10 +42,6 @@ class VIESProvider implements CompanyProviderInterface
     {
         $result = $this->query($this->formatVatNumber($vatNumber));
 
-        if (count($result) > 1) {
-            throw new SingleResultExpected();
-        }
-
         return isset($result[0]) ? $result[0] : null;
     }
 
