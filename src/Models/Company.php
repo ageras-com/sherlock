@@ -15,6 +15,8 @@ class Company
         'company_phone_number',
         'company_email',
         'company_incorporation_date',
+        'company_branch',
+        'company_type',
     ];
 
     protected $data;
