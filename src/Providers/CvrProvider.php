@@ -2,8 +2,8 @@
 
 namespace Ageras\Sherlock\Providers;
 
+use Ageras\Sherlock\Exceptions\SingleResultExpected;
 use Ageras\Sherlock\Models\Company;
-use Ageras\Sherlock\Models\SingleResultExpected;
 use GuzzleHttp\Client;
 
 class CvrProvider implements CompanyProviderInterface
@@ -46,7 +46,6 @@ class CvrProvider implements CompanyProviderInterface
     {
         $url = $this->serviceUrl . '/_search';
         $client = new Client();
-
         $response = $client->post($url, [
             'json' => [
                 'query' => [
@@ -89,6 +88,8 @@ class CvrProvider implements CompanyProviderInterface
                 'company_phone_number'        => $this->getContact($companyData->virksomhedMetadata->nyesteKontaktoplysninger),
                 'company_email'               => $this->getContact($companyData->virksomhedMetadata->nyesteKontaktoplysninger, 1),
                 'company_incorporation_date'  => $virksomhedMetadata->stiftelsesDato,
+                'company_type'                => $this->buildCompanyType($virksomhedMetadata->nyesteVirksomhedsform),
+                'company_branch'              => $this->buildCompanyBranch($companyData->hovedbranche),
             ]);
         }
 
@@ -153,5 +154,41 @@ class CvrProvider implements CompanyProviderInterface
             $address->etage,
             $address->sidedoer
         ), ' ,');
+    }
+
+    /**
+     * Build company branch information and return latest one.
+     * @param $branches
+     * @return array
+     */
+    public function buildCompanyBranch($branches)
+    {
+        if (count($branches) > 1) {
+            usort($branches, function($a, $b) {
+                return strtotime($b->sidstOpdateret) - strtotime($a->sidstOpdateret);
+            });
+        }
+
+        $companyBranches = array_map(function ($branch) {
+            return [
+                'code' => $branch->branchekode,
+                'text' => $branch->branchetekst,
+            ];
+        }, $branches);
+
+        return isset($companyBranches[0]) ? $companyBranches[0] : [];
+    }
+
+    /**
+     * Build company type.
+     * @param $metaData
+     * @return array
+     */
+    public function buildCompanyType($metaData)
+    {
+       return [
+           'code' => $metaData->virksomhedsformkode,
+           'description' => $metaData->langBeskrivelse,
+       ];
     }
 }
