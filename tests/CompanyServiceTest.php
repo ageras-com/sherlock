@@ -4,17 +4,21 @@ namespace Ageras\Sherlock\Tests;
 
 use Ageras\Sherlock\CompanyService;
 use Ageras\Sherlock\Models\Company;
-use Dotenv\Dotenv;
 
 class CompanyServiceTest extends TestCase
 {
     protected function setUp()
     {
         parent::setUp();
+<<<<<<< Updated upstream
         $baseDir = dirname(dirname(__FILE__));
         if (is_readable($baseDir . '/.env')) {
             (new Dotenv($baseDir))->load();
         }
+=======
+
+        $this->service = new CompanyService();
+>>>>>>> Stashed changes
     }
 
     public function test_that_the_correct_company_by_vat_number_is_returned_from_the_cvr_provider()
