@@ -14,6 +14,7 @@ class Company
         'company_postcode',
         'company_phone_number',
         'company_email',
+        'company_incorporation_date',
     ];
 
     protected $data;
@@ -28,6 +29,7 @@ class Company
     const COMPANY_STATUS_UNDER_VOLUNTARY_LIQUIDATION = 8;
     const COMPANY_STATUS_DISSOLVED_AFTER_BANKRUPTCY = 9;
     const COMPANY_STATUS_DISSOLVED_AFTER_MERGER = 10;
+    const COMPANY_STATUS_UNKNOWN = 11;
 
     public function __construct(array $data = [])
     {

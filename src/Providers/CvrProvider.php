@@ -2,7 +2,6 @@
 
 namespace Ageras\Sherlock\Providers;
 
-use Ageras\Sherlock\Exceptions\UnknownCompanyStatus;
 use Ageras\Sherlock\Models\Company;
 use Ageras\Sherlock\Models\SingleResultExpected;
 use GuzzleHttp\Client;
@@ -30,14 +29,12 @@ class CvrProvider implements CompanyProviderInterface
     {
         $vatNumber = urlencode($vatNumber);
 
-        return $this->query('cvrNummer:' . $vatNumber);
+        return $this->query('Vrvirksomhed.cvrNummer', $vatNumber);
     }
 
     public function companiesByName($name)
     {
-        $name = urlencode($name);
-
-        return $this->query('Vrvirksomhed.virksomhedMetadata.nyesteNavn.navn:' . $name);
+        return $this->query('Vrvirksomhed.virksomhedMetadata.nyesteNavn.navn', $name);
     }
 
     /**
@@ -45,14 +42,18 @@ class CvrProvider implements CompanyProviderInterface
      *
      * @return array
      */
-    protected function query($string)
+    protected function query($field, $value)
     {
         $url = $this->serviceUrl . '/_search';
         $client = new Client();
 
-        $response = $client->get($url, [
-            'query' => [
-                'q' => $string,
+        $response = $client->post($url, [
+            'json' => [
+                'query' => [
+                    'match' => [
+                        $field => $value,
+                    ],
+                ],
             ],
             'auth' => [
                 getenv('COMPANY_SERVICE_CVR_USERNAME'),
@@ -87,6 +88,7 @@ class CvrProvider implements CompanyProviderInterface
                 'company_postcode'            => $nyesteBeliggenhedsadresse->postnummer,
                 'company_phone_number'        => $this->getContact($companyData->virksomhedMetadata->nyesteKontaktoplysninger),
                 'company_email'               => $this->getContact($companyData->virksomhedMetadata->nyesteKontaktoplysninger, 1),
+                'company_incorporation_date'  => $virksomhedMetadata->stiftelsesDato,
             ]);
         }
 
@@ -115,10 +117,11 @@ class CvrProvider implements CompanyProviderInterface
             case 'OPLØSTEFTERKONKURS':
                 return Company::COMPANY_STATUS_DISSOLVED_AFTER_BANKRUPTCY;
             case 'OPLØSTEFTERFUSION':
+            case 'OPLØSTEFTERSPALTNING':
                 return Company::COMPANY_STATUS_DISSOLVED_AFTER_MERGER;
+            default:
+                return Company::COMPANY_STATUS_UNKNOWN;
         }
-
-        throw new UnknownCompanyStatus($status);
     }
 
     /**

@@ -2,6 +2,7 @@
 
 namespace Ageras\Sherlock\Exceptions;
 
+use Exception;
 use RuntimeException;
 
 class UnknownCompanyStatus extends RuntimeException
