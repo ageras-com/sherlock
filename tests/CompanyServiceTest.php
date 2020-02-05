@@ -7,6 +7,11 @@ use Ageras\Sherlock\Models\Company;
 
 class CompanyServiceTest extends TestCase
 {
+    /**
+     * @var CompanyService
+     */
+    private $service;
+
     protected function setUp()
     {
         parent::setUp();
