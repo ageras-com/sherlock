@@ -4,7 +4,6 @@ namespace Ageras\Sherlock\Tests;
 
 use Ageras\Sherlock\CompanyService;
 use Ageras\Sherlock\Models\Company;
-use Dotenv\Dotenv;
 
 class CompanyServiceTest extends TestCase
 {
@@ -16,10 +15,6 @@ class CompanyServiceTest extends TestCase
     protected function setUp()
     {
         parent::setUp();
-        $baseDir = dirname(dirname(__FILE__));
-        if (is_readable($baseDir . '/.env')) {
-            (new Dotenv($baseDir))->load();
-        }
 
         $this->service = new CompanyService();
     }
