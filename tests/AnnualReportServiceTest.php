@@ -4,7 +4,6 @@ namespace Ageras\Sherlock\Tests;
 
 use Ageras\Sherlock\AnnualReportService;
 use Ageras\Sherlock\Models\AnnualReport;
-use Dotenv\Dotenv;
 
 class AnnualReportServiceTest extends TestCase
 {
@@ -16,10 +15,7 @@ class AnnualReportServiceTest extends TestCase
     protected function setUp()
     {
         parent::setUp();
-        $baseDir = dirname(dirname(__FILE__));
-        if (is_readable($baseDir . '/.env')) {
-            (new Dotenv($baseDir))->load();
-        }
+
         $this->service = new AnnualReportService();
     }
 
