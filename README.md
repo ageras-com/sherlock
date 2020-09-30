@@ -8,7 +8,7 @@
 [![codecov](https://codecov.io/gh/ageras-com/sherlock/branch/master/graph/badge.svg)](https://codecov.io/gh/ageras-com/sherlock)
 
 ## Description
-Sherlock provides a generic interface over various databases containing company data such as addresses, VAT registration numbers, contact information and annual reports. Sherlock will, based on the country to search in, select the appropriate provider(s) to search.
+Sherlock provides a generic interface over multiple database containing company data such as addresses, VAT registration numbers, contact information and annual reports. Sherlock will, based on the country to search in, select the appropriate provider(s) to search.
 
 Currently Sherlock retrieves data from the following data providers:
 
